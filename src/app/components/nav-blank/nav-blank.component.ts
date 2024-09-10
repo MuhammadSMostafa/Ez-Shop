@@ -1,7 +1,7 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
-import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { Component, computed, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
 
@@ -32,7 +32,7 @@ export class NavBlankComponent{
 
   ngOnInit(): void {
       this._Router.events.subscribe((event)=>{
-        if (event instanceof NavigationStart) {
+        if (event instanceof NavigationEnd) {
         this.isDropdowmOpen = false;
         this.isNavbarOpen = false;
       }
