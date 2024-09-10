@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { CartService } from '../../core/services/cart.service';
@@ -32,9 +32,11 @@ export class NavBlankComponent{
 
   ngOnInit(): void {
       this._Router.events.subscribe((event)=>{
-        if (event instanceof NavigationEnd) {
-        this.isDropdowmOpen = false;
-        this.isNavbarOpen = false;
+        if (event instanceof NavigationStart) {
+          setTimeout(()=>{
+            this.isDropdowmOpen = false;
+            this.isNavbarOpen = false;
+          }, 1000)
       }
       });
     }

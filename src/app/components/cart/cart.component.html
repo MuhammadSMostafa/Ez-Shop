@@ -1,4 +1,4 @@
-@if(userCart().products.length > 0){
+@if(userCart().totalCartPrice){
 <section class="mt-10 w-[90%] md:w-3/4 mx-auto bg-gray-300 p-3 rounded-md">
   <div class="flex justify-between items-center">
     <h3 class="text-2xl text-blue-700 font-bold">Cart</h3>
@@ -48,7 +48,7 @@
     </button>
   </div>
 </section>
-} @else if(userCart().totalCartPrice === 0){
+} @else{
 <section
   class="bg-gray-400 p-6 w-fit mx-auto rounded-md text-white text-center mt-10"
 >
