@@ -1,0 +1,8 @@
+.fill-star {
+  --split: 0%;
+  background-image: linear-gradient(to right, #faca15 var(--split), darkgray var(--split) 100%);
+}
+.clip{
+  -webkit-background-clip: text;
+  background-clip: text;
+}

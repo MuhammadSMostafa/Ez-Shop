@@ -1,0 +1,31 @@
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+>
+  @for (category of categories(); track $index) {
+  <div
+    class="rounded overflow-hidden shadow-lg m-4 cursor-pointer relative"
+    [routerLink]="['/category', category._id]"
+  >
+    <img class="w-full h-60" [src]="category.image" alt="{{ category.name }}" />
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2 text-blue-600">
+        {{ category.name }}
+      </div>
+    </div>
+    <div
+      class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+    >
+      <ul>
+        @for(subCategory of subCategories(); track $index){
+        @if(subCategory.category === category._id){
+        <li
+          class="text-blue-950 m-1 px-1 text-center rounded-sm hover:bg-blue-950 hover:text-white"
+        >
+          {{ subCategory.name }}
+        </li>
+        } }
+      </ul>
+    </div>
+  </div>
+  }
+</div>

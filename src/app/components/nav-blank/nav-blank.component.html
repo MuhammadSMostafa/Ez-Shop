@@ -1,0 +1,124 @@
+<nav class="bg-blue-950 shadow-sm sticky top-0 w-full z-10">
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+  >
+    <a
+      routerLink="/home"
+      class="flex items-center space-x-3 rtl:space-x-reverse"
+    >
+      <img
+        src="./assets/images/logo-no-background.png"
+        class="h-8 cursor-pointer"
+        alt="Ez-Shop Logo"
+      />
+    </a>
+    <button
+      (click)="toggleNavbar()"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-blue-800"
+    >
+      <i class="fa-solid fa-bars fa-2x"></i>
+    </button>
+    <div
+      [class.hidden]="!isNavbarOpen"
+      class="w-full md:block md:w-auto"
+      id="navbar-dropdown"
+    >
+      <ul
+        class="flex justify-center gap-1 font-medium p-2 md:p-0 mt-2 md:space-x-1 rtl:space-x-reverse md:flex-row md:mt-0 flex-wrap"
+      >
+        <li>
+          <a
+            routerLink="/home"
+            routerLinkActive="bg-blue-800"
+            class="block w-fit px-2 py-1 text-white rounded hover:bg-blue-800"
+            >{{ "navbar.home" | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/categories"
+            routerLinkActive="bg-blue-800"
+            class="block w-fit px-2 py-1 text-white rounded hover:bg-blue-800"
+            >{{ "navbar.category" | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/products']"
+            routerLinkActive="bg-blue-800"
+            class="block w-fit px-2 py-1 text-white rounded hover:bg-blue-800"
+            >{{ "navbar.products" | translate }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/wishlist"
+            routerLinkActive="bg-blue-800"
+            class="block w-fit px-2 py-1 text-white rounded hover:bg-blue-800 relative z-10"
+          >
+            <i class="fa-solid fa-heart text-xl text-red-800"></i>
+            @if ( wishlistCount() && wishlistCount().length > 0) {
+            <span
+              class="bg-red-800 text-center px-2 rounded-full absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+              >{{ wishlistCount().length }}</span
+            >
+            }
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/cart"
+            routerLinkActive="bg-blue-800"
+            class="block w-fit px-2 py-1 text-white rounded hover:bg-blue-800 relative"
+          >
+            <i class="fa-solid fa-cart-shopping text-xl"></i>
+            @if ( cartCount() && cartCount().length > 0) {
+            <span
+              class="bg-blue-800 text-center px-2 rounded-full absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+              >{{ cartCount().length }}</span
+            >
+            }
+          </a>
+        </li>
+        <li>
+          <button
+            (click)="toggleDropdown()"
+            class="flex items-center justify-between w-fit py-2 px-3 text-white hover:bg-blue-800 rounded-full"
+          >
+            <i class="fa-solid fa-user"></i>
+            <i
+              class="fa-solid ms-1"
+              [class.fa-caret-down]="!isDropdowmOpen"
+              [class.fa-caret-up]="isDropdowmOpen"
+            ></i>
+          </button>
+          <div
+            [class.hidden]="!isDropdowmOpen"
+            class="z-10 font-normal bg-white rounded-lg shadow w-44 absolute right-8"
+          >
+            <ul class="py-2 text-sm text-gray-700 cursor-pointer">
+              <li class="py-1">
+                <p class="block px-4 py-1">{{ _AuthService.userData?.name }}</p>
+              </li>
+              <li class="py-1">
+                <a
+                  routerLink="/allorders"
+                  class="block px-4 py-2 text-sm text-blue-950 rounded hover:bg-blue-800 hover:text-white cursor-pointer"
+                  >Orders</a
+                >
+              </li>
+            </ul>
+            <li class="py-1">
+              <a
+                (click)="_AuthService.signOut()"
+                class="block px-4 py-2 text-sm text-red-700 rounded hover:bg-red-700 hover:text-white cursor-pointer"
+                >Sign out</a
+              >
+            </li>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

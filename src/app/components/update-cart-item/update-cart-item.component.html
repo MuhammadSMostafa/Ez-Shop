@@ -1,0 +1,32 @@
+<div class="flex flex-col justify-center items-center">
+  <div class="flex text-blue-800">
+    <button
+      class="hover:bg-blue-600 hover:text-white p-1 rounded-full cursor-pointer border border-blue-600 disabled:hover:bg-gray-400 disabled:hover:border-gray-400 disabled:cursor-default"
+      [disabled]="disabledBtn"
+      (click)="updateCountItem(item().product, item().count - 1)"
+    >
+      <i class="fa-solid fa-minus"></i>
+    </button>
+    <span class="py-1 px-2"
+      >@if(!disabledBtn){
+      {{ item().count }}
+      } @else {
+      <i class="fas fa-spin fa-spinner -mx-1"></i>
+      }
+    </span>
+    <button
+      class="hover:bg-blue-600 hover:text-white p-1 rounded-full cursor-pointer border border-blue-600 disabled:hover:bg-gray-400 disabled:hover:border-gray-400 disabled:cursor-default"
+      [disabled]="disabledBtn"
+      (click)="updateCountItem(item().product, item().count + 1)"
+    >
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+  @if (cartComponent()) {
+  <p class="text-red-700 cursor-pointer" (click)="removeItem(item().product)">
+    <span>
+      <i class="fa-solid fa-trash"></i>
+    </span>
+  </p>
+  }
+</div>

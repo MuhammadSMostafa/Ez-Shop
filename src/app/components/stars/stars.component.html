@@ -1,0 +1,16 @@
+@for (current of [1,2,3,4,5]; track $index) { @if (star() >= current) {
+<span>
+  <i class="fa-solid fa-star text-transparent bg-yellow-300 clip"></i
+></span>
+} @else if (star()+1 >= current) {
+<span>
+  <i
+    [style.--split]="(star() % 1) * 100 + '%'"
+    class="fa-solid fa-star text-transparent fill-star clip"
+  ></i
+></span>
+} @else {
+<span>
+  <i class="fa-solid fa-star text-transparent bg-[#A9A9A9] clip"></i
+></span>
+} }

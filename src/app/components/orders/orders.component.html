@@ -1,0 +1,64 @@
+<div class="container mx-auto p-6">
+  <app-headline [headlineText]="'Your Orders'"> </app-headline>
+  @if(noData){
+  <div class="bg-gray-400 p-6 w-fit mx-auto rounded-md text-white text-center">
+    <h1 class="mb-5 text-2xl">
+      Looks Like You Didn't Make Any Order Yet
+      <span><i class="fa-solid fa-heart-crack text-red-600"></i></span>
+    </h1>
+    <button routerLink="/home" class="bg-blue-700 p-2 rounded-md">Home</button>
+  </div>
+  } @else { @for (order of orders(); track $index) {
+  <div class="border rounded-lg shadow-lg p-6 mb-6 bg-white">
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Order #{{ order._id }}</h2>
+      <p class="text-gray-500">Placed on: {{ order.createdAt | date }}</p>
+      <p class="text-gray-500">Total Price: {{ order.totalOrderPrice }}EGP</p>
+    </div>
+    <div class="mb-4">
+      <h3 class="font-semibold">Shipping Address</h3>
+      <p>
+        W {{ order.shippingAddress.details }}, {{ order.shippingAddress.city }}
+      </p>
+      <p>Phone: {{ order.shippingAddress.phone }}</p>
+    </div>
+    <div>
+      <h3 class="font-semibold">Items:</h3>
+      @for (item of order.cartItems; track $index) {
+      <div class="border-t mt-2 pt-2">
+        <div class="flex items-center">
+          <img
+            [src]="item.product.imageCover"
+            alt="{{ item.product.title }}"
+            class="w-16 h-16 rounded mr-4"
+          />
+          <div class="flex-grow">
+            <p class="text-lg font-semibold">{{ item.product.title }}</p>
+            <p class="text-gray-500">Quantity: {{ item.count }}</p>
+            <p class="text-gray-500">Price: {{ item.price }}EGP</p>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="mt-4">
+      <p>
+        Payment:
+        <span
+          [class.text-green-500]="order.isPaid"
+          [class.text-red-500]="!order.isPaid"
+          >{{ order.isPaid ? "Paid" : "Cash on delivery" }}</span
+        >
+      </p>
+      <p>
+        Delivery Status:
+        <span
+          [class.text-green-500]="order.isDelivered"
+          [class.text-red-500]="!order.isDelivered"
+          >{{ order.isDelivered ? "Delivered" : "Not Delivered" }}</span
+        >
+      </p>
+    </div>
+  </div>
+  } }
+</div>

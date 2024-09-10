@@ -1,0 +1,153 @@
+<section class="form mt-10">
+  <h1 class="form-header">Register Now</h1>
+  <form
+    class="max-w-sm mx-auto"
+    [formGroup]="registerForm"
+    (ngSubmit)="register()"
+  >
+    <div class="mb-5">
+      <label for="name" class="block mb-2 text-sm font-medium text-blue-900"
+        >Your Name</label
+      >
+      <input
+        type="text"
+        id="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Your Name"
+        formControlName="name"
+      />
+      @if (registerForm.get('name')?.errors &&
+      (registerForm.get('name')?.touched || registerForm.get('name')?.dirty)) {
+      <div class="error">
+        @if(registerForm.get('name')?.getError('required')){
+        <p>Name is required</p>
+        }@else if (registerForm.get('name')?.getError('minlength')) {
+        <p>Name must be more than 3 characters</p>
+        }@else if (registerForm.get('name')?.getError('maxlength')) {
+        <p>Name must be less than 20 characters</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label for="email" class="block mb-2 text-sm font-medium text-blue-900"
+        >Your Email</label
+      >
+      <input
+        type="email"
+        id="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Your Email"
+        formControlName="email"
+      />
+      @if (registerForm.get('email')?.errors &&
+      (registerForm.get('email')?.touched || registerForm.get('email')?.dirty))
+      {
+      <div class="error">
+        @if(registerForm.get('email')?.getError('required')){
+        <p>Email is required</p>
+        }@else if (registerForm.get('email')?.getError('pattern')) {
+        <p>Wrong email</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label for="phone" class="block mb-2 text-sm font-medium text-blue-900"
+        >Your Phone</label
+      >
+      <input
+        type="tel"
+        id="phone"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Your Phone"
+        formControlName="phone"
+      />
+      @if (registerForm.get('phone')?.errors &&
+      (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty))
+      {
+      <div class="error">
+        @if(registerForm.get('phone')?.getError('required')){
+        <p>Phone is required</p>
+        }@else if (registerForm.get('phone')?.getError('pattern')) {
+        <p>Wrong phone</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label for="password" class="block mb-2 text-sm font-medium text-blue-900"
+        >Your Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Your Password"
+        formControlName="password"
+      />
+      @if (registerForm.get('password')?.errors &&
+      (registerForm.get('password')?.touched ||
+      registerForm.get('password')?.dirty)) {
+      <div class="error">
+        @if(registerForm.get('password')?.getError('required')){
+        <p>Password is Required</p>
+        }@else if (registerForm.get('password')?.getError('pattern')) {
+        <p>Must be more than 6 characters</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label
+        for="rePassword"
+        class="block mb-2 text-sm font-medium text-blue-900"
+        >Confirm Password</label
+      >
+      <input
+        type="password"
+        id="rePassword"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Confirm Password"
+        formControlName="rePassword"
+      />
+      @if (registerForm.getError('mismatch') &&
+      (registerForm.get('rePassword')?.touched ||
+      registerForm.get('rePassword')?.dirty)) {
+      <div class="error">
+        <p>Password doesn't match</p>
+      </div>
+      }
+    </div>
+    <div class="flex justify-between items-center">
+      <div>
+        <p>
+          Do you have an account?
+          <a class="text-blue-500 cursors-pointer" routerLink="/login">Login</a>
+        </p>
+      </div>
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center block ms-8"
+      >
+        <span class="mx-3">Register </span> @if (isLoading) {
+        <span class="-ms-3">
+          <i class="fas fa-spin fa-spinner"></i>
+        </span>
+        }
+      </button>
+    </div>
+    @if (messageErr) {
+    <div class="error">
+      <p>{{ messageErr }}</p>
+    </div>
+    }@if (mssSuccess) {
+    <p class="bg-green-600 text-white p-2 mt-2 text-center rounded-md">
+      Registration Success
+      <span>
+        <i class="fas fa-spin fa-spinner"></i>
+      </span>
+    </p>
+    }
+  </form>
+</section>

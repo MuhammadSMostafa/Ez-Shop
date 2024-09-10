@@ -1,0 +1,134 @@
+@if(step === 1){
+<section class="form md:w-3/4 lg:w-1/2 mt-3">
+  <app-headline [headlineText]="'Saved Addresses'"></app-headline>
+  @if(addresses().length < 1){
+  <h3 class="text-center mb-3">No addresses saved on your account</h3>
+  }@else { @for (address of addresses(); track $index) {
+  <div
+    class="bg-gray-400 p-3 rounded-md text-white font-bold mb-2 cursor-pointer"
+    (click)="placeOrder(address)"
+  >
+    <p class="text-center text-blue-950">
+      {{ address.name }}
+    </p>
+    <div class="flex justify-between">
+      <div class="text-blue-950">
+        <p>{{ address.phone }}</p>
+        <p>{{ address.city }}</p>
+        <p>
+          {{ address.details }}
+        </p>
+      </div>
+    </div>
+  </div>
+  } }
+  <button
+    (click)="step = 2"
+    class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center block mx-auto"
+  >
+    Add New Address
+  </button>
+</section>
+} @else if (step === 2) {
+<section class="form md:w-3/4 lg:w-1/2 mt-3">
+  <h1 class="form-header">Add New Address</h1>
+  <form class="mx-auto" [formGroup]="shippingAddress" (ngSubmit)="addAddress()">
+    <div class="mb-5">
+      <label for="details" class="block mb-2 text-sm font-medium text-blue-900"
+        >Address Name</label
+      >
+      <input
+        id="name"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Address Name"
+        formControlName="name"
+      />
+      @if (shippingAddress.get('name')?.errors &&
+      (shippingAddress.get('name')?.touched ||
+      shippingAddress.get('name')?.dirty)) {
+      <div class="error">
+        @if(shippingAddress.get('name')?.getError('required')){
+        <p>Name is Required</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label for="details" class="block mb-2 text-sm font-medium text-blue-900"
+        >Address Details</label
+      >
+      <textarea
+        id="details"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 min-h-20"
+        placeholder="Details"
+        formControlName="details"
+      >
+      </textarea>
+      @if (shippingAddress.get('details')?.errors &&
+      (shippingAddress.get('details')?.touched ||
+      shippingAddress.get('details')?.dirty)) {
+      <div class="error">
+        @if(shippingAddress.get('details')?.getError('required')){
+        <p>details is Required</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label for="phone" class="block mb-2 text-sm font-medium text-blue-900"
+        >Phone</label
+      >
+      <input
+        type="tel"
+        id="phone"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Phone"
+        formControlName="phone"
+      />
+      @if (shippingAddress.get('phone')?.errors &&
+      (shippingAddress.get('phone')?.touched ||
+      shippingAddress.get('phone')?.dirty)) {
+      <div class="error">
+        @if(shippingAddress.get('phone')?.getError('required')){
+        <p>Phone is Required</p>
+        }@else if (shippingAddress.get('phone')?.getError('pattern')) {
+        <p>Wrong phone</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-5">
+      <label for="city" class="block mb-2 text-sm font-medium text-blue-900"
+        >City</label
+      >
+      <input
+        type="text"
+        id="city"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="City"
+        formControlName="city"
+      />
+      @if (shippingAddress.get('city')?.errors &&
+      (shippingAddress.get('city')?.touched ||
+      shippingAddress.get('city')?.dirty)) {
+      <div class="error">
+        @if(shippingAddress.get('city')?.getError('required')){
+        <p>City is Required</p>
+        }
+      </div>
+      }
+    </div>
+    <button
+      type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center block ms-auto"
+    >
+      <span class="mx-3">Add Address </span>
+      @if (isLoading) {
+      <span class="-ms-3">
+        <i class="fas fa-spin fa-spinner"></i>
+      </span>
+      }
+    </button>
+  </form>
+</section>
+}

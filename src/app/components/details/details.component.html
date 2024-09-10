@@ -1,0 +1,97 @@
+@if (productDetails().title) {
+<section>
+  <div class="grid grid-cols-4 gap-4">
+    <div class="col-span-4 md:col-span-1">
+      <div class="w-1/2 mx-auto md:w-full">
+        <swiper-container
+          class="mySwiper"
+          pagination="true"
+          pagination-clickable="true"
+          effect="fade"
+        >
+          @for (img of productDetails().images; track $index) {
+          <swiper-slide>
+            <div class="realtive">
+              <img [src]="img" class="w-full" [alt]="productDetails().title" />
+              <div class="layer absolute bottom-0 right-0">
+                <div class="w-14">
+                  <img
+                    [src]="productDetails().brand.image"
+                    [alt]="productDetails().brand.name"
+                    class="w-full"
+                  />
+                </div>
+              </div>
+              <div class="absolute top-0 right-5 text-red-600 cursor-pointer">
+                <span>
+                  @if(wishlistProductsId().includes(productDetails()._id)){
+                  <i
+                    class="fa-solid fa-heart text-xl"
+                    (click)="removeFromWishlist(productDetails().id)"
+                  ></i>
+                  } @else {
+                  <i
+                    class="fa-regular fa-heart text-xl"
+                    (click)="addToWishlist(productDetails().id)"
+                  ></i>
+                  }
+                </span>
+              </div>
+            </div>
+          </swiper-slide>
+          }
+        </swiper-container>
+        <img />
+      </div>
+    </div>
+    <div class="col-span-4 md:col-span-3 flex flex-col justify-center px-2">
+      <div>
+        <h2 class="text-blue-700 font-bold text-2xl">
+          {{ productDetails().title }}
+        </h2>
+        <p class="text-gray-400">{{ productDetails().description }}</p>
+        <p class="my-3">
+          Category:
+          <a
+            [routerLink]="['/category', productDetails().category._id]"
+            class="bg-blue-700 text-white py-1 px-2 rounded-lg cursor-pointer"
+            >{{ productDetails().category.name }}</a
+          >
+        </p>
+        <p class="my-3">
+          Brand:
+          <a
+            [routerLink]="['/brand', productDetails().brand._id]"
+            class="bg-blue-700 text-white py-1 px-2 rounded-lg cursor-pointer"
+            >{{ productDetails().brand.name }}</a
+          >
+        </p>
+        <div class="flex items-center justify-between mt-2.5 mb-5">
+          <div>
+            <app-stars [star]="productDetails().ratingsAverage"></app-stars>
+          </div>
+          <span
+            class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded ms-3"
+            >{{ productDetails().ratingsAverage }}</span
+          >
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-gray-900"
+            >{{ productDetails().price }}EGP</span
+          >
+          @if(productsId().includes(productDetails()._id)){
+          <app-update-cart-item
+            [item]="getProduct(productDetails()._id)"
+            [cartComponent]="true"
+          ></app-update-cart-item>
+          } @else {
+          <app-add-to-cart-button
+            [productId]="productDetails()._id"
+          ></app-add-to-cart-button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+}

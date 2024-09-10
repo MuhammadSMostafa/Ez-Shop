@@ -1,0 +1,113 @@
+<section>
+  <div class="grid grid-cols-4">
+    <div class="col-span-4 lg:col-span-3">
+      <owl-carousel-o [options]="sliderCustomOptions">
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img1.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img2.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img3.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img4.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img5.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img6.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img
+            src="./assets/images/img7.avif"
+            class="w-full lg:h-[300px]"
+            alt="Ez-shop slider image"
+        /></ng-template>
+      </owl-carousel-o>
+    </div>
+    <div class="hidden lg:block col-span-1">
+      <img
+        src="./assets/images/grocery-banner.png"
+        class="w-full h-[150px]"
+        alt="Ez-shop slider image"
+      />
+      <img
+        src="./assets/images/grocery-banner-2.jpeg"
+        class="w-full h-[150px]"
+        alt="Ez-shop slider image"
+      />
+    </div>
+  </div>
+</section>
+
+@if (categories().length > 0) {
+<app-headline [headlineText]="'Categories'"></app-headline>
+<section>
+  <div class="overflow-x-auto custom-scrollbar">
+    <div class="grid grid-flow-col auto-cols-[minmax(150px,1fr)]">
+      @for (category of categories(); track category._id) {
+      <div class="cursor-pointer" [routerLink]="['/category', category._id]">
+        <img
+          [src]="category.image"
+          class="w-full h-[120px]"
+          [alt]="category.name"
+        />
+        <h3 class="text-xl text-blue-700 text-center">{{ category.name }}</h3>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+} @if (brands().length > 0) {
+<section>
+  <app-headline [headlineText]="'Brands'"></app-headline>
+  <div class="overflow-x-auto custom-scrollbar">
+    <div class="grid grid-flow-col auto-cols-[minmax(150px,1fr)] gap-2 m-2">
+      @for (brand of brands(); track brand._id) {
+      <div
+        class="cursor-pointer border border-black rounded-full overflow-hidden hover:bg-blue-500"
+        [routerLink]="['/brand', brand._id]"
+      >
+        <img
+          [src]="brand.image"
+          class="w-full mix-blend-color-burn"
+          [alt]="brand.name"
+        />
+      </div>
+      }
+    </div>
+  </div>
+</section>
+} @if (products().length > 0) {
+<section>
+  <app-headline [headlineText]="'Popular Products'"></app-headline>
+  <div
+    class="mx-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2"
+  >
+    @for (product of products(); track product._id) {
+    <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+</section>
+}

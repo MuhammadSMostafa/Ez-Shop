@@ -1,0 +1,79 @@
+<section class="form">
+  <h1 class="form-header">Login Now</h1>
+  <form class="max-w-sm mx-auto" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="mb-2">
+      <label for="email" class="block mb-2 text-sm font-medium text-blue-900"
+        >Your Email
+      </label>
+      <input
+        type="email"
+        id="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Your Email"
+        formControlName="email"
+      />
+      @if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||
+      loginForm.get('email')?.dirty)) {
+      <div class="error">
+        @if(loginForm.get('email')?.getError('required')){
+        <p>Email is Required</p>
+        }@else if (loginForm.get('email')?.getError('pattern')) {
+        <p>Wrong Email</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-2">
+      <label for="password" class="block mb-2 text-sm font-medium text-blue-900"
+        >Your Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Your Password"
+        formControlName="password"
+      />
+      @if (loginForm.get('password')?.errors &&
+      (loginForm.get('password')?.touched || loginForm.get('password')?.dirty))
+      {
+      <div class="error">
+        @if(loginForm.get('password')?.getError('required')){
+        <p>Password is Required</p>
+        }@else if (loginForm.get('password')?.getError('pattern')) {
+        <p>Password must be more than 6 characters</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="flex justify-between items-center">
+      <div>
+        <p>
+          Don't have an account?
+          <a class="text-blue-500 cursor-pointer" routerLink="/register"
+            >Register</a
+          >
+        </p>
+      </div>
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center block ms-8"
+      >
+        <span class="mx-3">Login </span>
+        @if (isLoading) {
+        <span class="-ms-3">
+          <i class="fas fa-spin fa-spinner"></i>
+        </span>
+        }
+      </button>
+    </div>
+    @if (messageErr) {
+    <div class="error">
+      <p>{{ messageErr }}</p>
+    </div>
+    }
+    <a class="text-blue-500 cursor-pointer" routerLink="/forgotpassword"
+      >Forgotten Password?</a
+    >
+  </form>
+</section>

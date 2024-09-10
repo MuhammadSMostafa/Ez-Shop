@@ -1,0 +1,11 @@
+<button
+  (click)="addToCart(productId())"
+  class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 font-bold rounded-lg text-sm p-2.5 text-center"
+>
+  <span class="mx-3">Add To Card </span>
+  @if (isLoading) {
+  <span class="-ms-3">
+    <i class="fas fa-spin fa-spinner"></i>
+  </span>
+  }
+</button>

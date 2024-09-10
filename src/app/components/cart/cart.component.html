@@ -1,0 +1,57 @@
+@if(userCart().totalCartPrice){
+<section class="mt-10 w-[90%] md:w-3/4 mx-auto bg-gray-300 p-3 rounded-md">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl text-blue-700 font-bold">Cart</h3>
+    <button
+      (click)="deleteCart()"
+      class="bg-red-700 text-white px-2 py-1 rounded-lg cursor-pointer"
+    >
+      Delete All Items
+    </button>
+  </div>
+  @for (item of userCart().products; track item.product._id) {
+  <div class="grid grid-cols-12 p-2">
+    <div class="col-span-2 md:col-span-1">
+      <img
+        [src]="item.product.imageCover"
+        [alt]="item.product.title"
+        class="w-full"
+      />
+    </div>
+    <div
+      class="ps-2 col-span-10 md:col-span-11 flex justify-between items-center"
+    >
+      <div>
+        <h3 class="text-blue-700 text-xl">{{ item.product.title }}</h3>
+        <p>Price: {{ item.price }}</p>
+        @if (item.count > 1) {
+        <p>Total: {{ item.price * item.count }}</p>
+        }
+      </div>
+      <app-update-cart-item
+        [item]="item"
+        [cartComponent]="true"
+      ></app-update-cart-item>
+    </div>
+  </div>
+  <hr />
+  }
+  <div
+    class="mt-2 bg-gray-600 p-2 rounded-md text-white flex justify-between items-center"
+  >
+    <p>Total Amount: {{ userCart().totalCartPrice }}EGP</p>
+    <button
+      class="text-white bg-blue-700 hover:bg-blue-800 font-bold rounded-lg text-sm p-2.5 text-center cursor-pointer"
+      [routerLink]="['/payment', userCart()._id]"
+    >
+      Place Order
+    </button>
+  </div>
+</section>
+} @else if(userCart().totalCartPrice === 0){
+<section
+  class="bg-gray-400 p-6 w-fit mx-auto rounded-md text-white text-center mt-10"
+>
+  <app-no-data [text]="'On Your Cart'"></app-no-data>
+</section>
+}
