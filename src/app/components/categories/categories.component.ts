@@ -43,7 +43,7 @@ export class CategoriesComponent implements OnInit , OnDestroy{
   }
 
   ngOnDestroy(): void {
-      this.getCategoriesSubscription.unsubscribe();
-      this.getSubCategoriesSubscription.unsubscribe();
+      this.getCategoriesSubscription?.unsubscribe();
+      this.getSubCategoriesSubscription?.unsubscribe();
   }
 }
