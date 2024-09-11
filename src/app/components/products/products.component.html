@@ -5,31 +5,34 @@
     class="w-3/4 md:w-1/2 mx-auto block my-8 rounded-md"
     [(ngModel)]="searchText"
   />
+  @if ((products() | search : searchText).length > 0) {
   <div class="mx-10 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
     @for (product of products() | search : searchText ; track product._id) {
     <app-product-card [product]="product"></app-product-card>
     }
   </div>
-
-  @if(metaData && metaData.numberOfPages > 1){
+  } @else if(searchText!==''){
+  <app-no-data [text]="'Matches Your Search'"></app-no-data>
+  } @if(metaData && metaData.numberOfPages > 1 && searchText.length === 0){
   <nav class="text-center mt-2">
     <ul class="inline-flex -space-x-px text-base h-10">
       <li
         (click)="pagination(metaData.prevPage)"
         [class.cursor-pointer]="metaData.prevPage"
       >
-        <a
+        <button
           class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 border border-e-0 border-gray-300 rounded-s-lg"
           [ngClass]="{'hover:text-gray-700': metaData.prevPage,
             'hover:bg-gray-100': metaData.prevPage,
             'bg-gray-300': !metaData.prevPage,
           }"
-          >Previous</a
         >
+          Previous
+        </button>
       </li>
       @for (currentPage of numberOfPages(); track $index) {
       <li (click)="pagination(currentPage)" class="cursor-pointer">
-        <a
+        <button
           class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300"
           [ngClass]="{'bg-blue-700': currentPage === metaData.currentPage,
             'text-white': currentPage === metaData.currentPage,
@@ -37,22 +40,24 @@
             'hover:bg-gray-100': currentPage !== metaData.currentPage,
             'hover:hover:text-gray-700': currentPage !== metaData.currentPage,
           }"
-          >{{ currentPage }}</a
         >
+          {{ currentPage }}
+        </button>
       </li>
       }
       <li
         (click)="pagination(metaData.nextPage)"
         [class.cursor-pointer]="metaData.nextPage"
       >
-        <a
+        <button
           class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300 rounded-e-lg"
           [ngClass]="{'hover:text-gray-700': metaData.nextPage,
             'hover:bg-gray-100': metaData.nextPage,
             'bg-gray-300': !metaData.nextPage,
           }"
-          >Next</a
         >
+          Next
+        </button>
       </li>
     </ul>
   </nav>

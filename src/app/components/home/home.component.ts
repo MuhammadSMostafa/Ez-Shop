@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy{
     autoplayHoverPause:true,
     dots: false,
     autoplay:true,
-    autoplayTimeout: 3000,
+    autoplayTimeout: 5000,
     navSpeed: 700,
     items: 1,
   }

@@ -8,11 +8,12 @@ import { IProduct } from '../../core/interfaces/iproduct';
 import { SearchPipe } from '../../core/pipes/search.pipe';
 import { ProductsService } from '../../core/services/products.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
+import { NoDataComponent } from "../no-data/no-data.component";
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [RouterLink, SearchPipe, FormsModule, ProductCardComponent, NgClass],
+  imports: [RouterLink, SearchPipe, FormsModule, ProductCardComponent, NgClass, NoDataComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -40,7 +41,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
     this._ProductsService.getSpecificProductsPage(page).subscribe({
       next:(res)=>{
         window.scrollTo(0, 0);
-        this.products = res.data;
+        this.products.set(res.data);
         this.metaData = res.metadata;
       }
     })

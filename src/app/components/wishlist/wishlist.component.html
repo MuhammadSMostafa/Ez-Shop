@@ -1,7 +1,7 @@
 <section class="mt-5">
   <app-headline [headlineText]="'Wishlist'"></app-headline>
-  @if(_WishlistService.wishlistIds().length === 0){
-  <app-no-data [text]="'Your Wishlist'"></app-no-data>
+  @if(_WishlistService.wishlistIds().length === 0 && wishlistProducts()){
+  <app-no-data [text]="'On Your Wishlist'"></app-no-data>
   }@else {
   <div class="mx-10 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
     @for (product of wishlistProducts(); track product._id) { @if

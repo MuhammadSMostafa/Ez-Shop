@@ -14,7 +14,7 @@ import { IProduct } from './../../core/interfaces/iproduct';
 })
 export class WishlistComponent implements OnInit{
   public readonly _WishlistService = inject(WishlistService);
-  wishlistProducts:WritableSignal<IProduct[]> = signal([]);
+  wishlistProducts:WritableSignal<IProduct[] | null> = signal(null);
 
   ngOnInit(): void {
     this._WishlistService.getWishlist().subscribe({
