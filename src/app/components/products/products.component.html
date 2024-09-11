@@ -2,7 +2,7 @@
   <input
     type="search"
     placeholder="Search..."
-    class="w-3/4 md:w-1/2 mx-auto block my-8 rounded-md"
+    class="w-3/4 md:w-1/2 mx-auto block mb-8 rounded-md"
     [(ngModel)]="searchText"
   />
   @if ((products() | search : searchText).length > 0) {
