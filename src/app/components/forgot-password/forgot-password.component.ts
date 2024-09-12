@@ -2,6 +2,7 @@ import { Component, inject, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class ForgotPasswordComponent implements OnDestroy{
   private readonly _FormBuilder = inject(FormBuilder);
   private readonly _AuthService = inject(AuthService);
   private readonly _Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
   verifyEmailSubscription!:Subscription;
   verifyCodeSubscription!:Subscription;
   resetPasswordSubscription!:Subscription;
@@ -80,6 +82,7 @@ export class ForgotPasswordComponent implements OnDestroy{
       this.isLoading=true;
       this.resetPasswordSubscription = this._AuthService.resetPassword({...this.verifyEmailForm.value, ...this.resetPasswordForm.value}).subscribe({
         next:(res)=>{
+          this._ToastrService.success('Password Updated Successfully');
             this._Router.navigate(['/login']);
         },error:(err)=>{
           this.isLoading = false;
