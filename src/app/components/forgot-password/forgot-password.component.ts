@@ -80,9 +80,7 @@ export class ForgotPasswordComponent implements OnDestroy{
       this.isLoading=true;
       this.resetPasswordSubscription = this._AuthService.resetPassword({...this.verifyEmailForm.value, ...this.resetPasswordForm.value}).subscribe({
         next:(res)=>{
-            this.isLoading = false;
-            localStorage.setItem('userToken', res.data.token);
-            this._Router.navigate(['/home']);
+            this._Router.navigate(['/login']);
         },error:(err)=>{
           this.isLoading = false;
           this.messageErr = err.error.message;
