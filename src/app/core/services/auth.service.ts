@@ -32,8 +32,8 @@ export class AuthService {
   signOut():void{
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');
-    this.userData = null;
     this._Router.navigate(['/login']);
+    this.userData = null;
   }
 
   verifyEmail(data:object):Observable<any>{
