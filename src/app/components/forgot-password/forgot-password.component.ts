@@ -31,7 +31,7 @@ export class ForgotPasswordComponent implements OnDestroy{
   });
 
   resetPasswordForm:FormGroup = this._FormBuilder.group({
-    newPassword : [null, [Validators.required, Validators.pattern(/^\d{6}$/)]],
+    newPassword : [null, [Validators.required, Validators.pattern(/^\w{6,}$/)]],
     confirmPassword : [null],
   }, {validators : this.confirmPassword});
 
