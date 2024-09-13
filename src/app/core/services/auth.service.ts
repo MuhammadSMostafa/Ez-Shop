@@ -30,10 +30,10 @@ export class AuthService {
   }
 
   signOut():void{
+    this._Router.navigate(['/login']);
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');
     this.userData = null;
-    this._Router.navigate(['/login']);
   }
 
   verifyEmail(data:object):Observable<any>{
