@@ -21,7 +21,6 @@ export class RegisterComponent implements OnDestroy{
   registerSubscribtion!:Subscription;
   messageErr:string = "";
   isLoading:boolean = false;
-  mssSuccess:boolean = false;
 
   registerForm:FormGroup = this._FormBuilder.group({
     name : [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
@@ -38,7 +37,6 @@ export class RegisterComponent implements OnDestroy{
       next: (res)=>{
           if(res.message == "success"){
             this.messageErr = "";
-            this.mssSuccess = true;
             this.isLoading = false;
             this._ToastrService.success('Register Success');
             this._Router.navigate(['/login']);
