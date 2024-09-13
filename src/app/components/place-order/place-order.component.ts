@@ -59,7 +59,7 @@ export class PlaceOrderComponent implements OnInit, OnDestroy{
       this.addAddressesSubscription = this._AddressesService.addAddress(this.shippingAddress.value).subscribe({
       next:(res)=>{
       this.isLoading = false;
-      this.addresses = res.data;
+      this.addresses.set(res.data);
       this.step = 1;
       this.shippingAddress.reset();
       }
