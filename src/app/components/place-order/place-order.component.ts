@@ -44,8 +44,7 @@ export class PlaceOrderComponent implements OnInit, OnDestroy{
           this.id = res.get('id');
         }
       });
-
-      this._AddressesService.getAllAddresses().subscribe({
+      this.getAllAddressesSubscription = this._AddressesService.getAllAddresses().subscribe({
         next:(res)=>{
           this.step = 1;
           this.addresses.set(res.data);
